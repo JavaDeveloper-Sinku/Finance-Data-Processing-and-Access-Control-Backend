@@ -9,6 +9,10 @@ import com.finance.backend.repository.FinancialRecordRepository;
 import com.finance.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -90,4 +94,27 @@ public class FinancialRecordService {
                 .categoryWiseTotals(categoryTotals)
                 .build();
     }
+
+
+    // pagination method
+    public Page<FinancialRecord> getRecordsByUser(
+            String email,
+            int page,
+            int size
+    ) {
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        Pageable pageable = PageRequest.of(
+                page,
+                size,
+                Sort.by("date").descending()
+        );
+
+        return recordRepository.findByUser(user, pageable);
+    }
+
+
+
 }

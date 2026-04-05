@@ -8,6 +8,7 @@ import com.finance.backend.service.FinancialRecordService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -37,10 +38,18 @@ public class FinancialRecordController {
     }
 
     // READ - ADMIN + ANALYST + VIEWER
+    //pagination
     @GetMapping
     @PreAuthorize("hasAnyRole('ADMIN','ANALYST','VIEWER')")
-    public List<FinancialRecord> getAll() {
-        return recordService.getRecordsByUser(getCurrentUserEmail());
+    public Page<FinancialRecord> getAll(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ){
+        return recordService.getRecordsByUser(
+                getCurrentUserEmail(),
+                page,
+                size
+        );
     }
 
     // UPDATE - ADMIN only

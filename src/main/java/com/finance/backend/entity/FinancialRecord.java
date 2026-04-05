@@ -42,7 +42,6 @@ public class FinancialRecord {
 
     private String note;
 
-    // Multi-user support
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
