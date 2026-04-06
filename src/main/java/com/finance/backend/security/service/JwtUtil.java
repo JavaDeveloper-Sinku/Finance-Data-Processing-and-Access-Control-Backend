@@ -5,6 +5,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -21,8 +22,12 @@ public class JwtUtil {
     @Value("${jwt.secret}")
     private String SECRET;
 
+    private SecretKey key;
 
-    private final SecretKey key = Keys.hmacShaKeyFor(SECRET.getBytes());
+    @PostConstruct
+    public void init() {
+        key = Keys.hmacShaKeyFor(SECRET.getBytes());
+    }
 
     public String generateToken(String email) {
 
