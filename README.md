@@ -66,7 +66,7 @@ http://localhost:8080/swagger-ui/index.html
 
 ### 1. Clone Repository
 
-git clone https://github.com/YOUR_USERNAME/Finance-Data-Processing-and-Access-Control-Backend.git
+git clone https://github.com/JavaDeveloper-Sinku/Finance-Data-Processing-and-Access-Control-Backend.git
 cd finance-backend
 
 ### 2. Configure Database
