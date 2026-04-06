@@ -101,6 +101,10 @@ mvn spring-boot:run
 * PUT /api/records/{id}
 * DELETE /api/records/{id}
 
+ ### Dashboard APIs
+ 
+ * GET /api/dashboard/summary
+
 ---
 
 ## Project Structure
@@ -118,5 +122,5 @@ src/main/java/com/finance/backend
 
 ## Author
 
-Rishi Singh
+Sinku Singh
 Java Backend Developer
